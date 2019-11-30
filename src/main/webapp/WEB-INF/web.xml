@@ -20,6 +20,36 @@
     <servlet-class>pl.altkom.web.RedirectServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>add_user</servlet-name>
+    <servlet-class>pl.altkom.web.SaveClientDataServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>success</servlet-name>
+    <servlet-class>pl.altkom.web.successfullSubmitServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>showDatabase</servlet-name>
+    <servlet-class>pl.altkom.web.showDatabaseServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>showDatabase</servlet-name>
+    <url-pattern>/database</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>success</servlet-name>
+    <url-pattern>/success</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>add_user</servlet-name>
+    <url-pattern>/add_user</url-pattern>
+  </servlet-mapping>
+
 
   <servlet-mapping>
     <servlet-name>hello</servlet-name>
@@ -35,6 +65,19 @@
     <servlet-name>redirect</servlet-name>
     <url-pattern>/redirect</url-pattern>
   </servlet-mapping>
+
+  <context-param>
+    <param-name>dataSource</param-name>
+    <param-value>jdbc:komis</param-value>
+  </context-param>
+
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc:komis</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+
 
   <welcome-file-list>
     <welcome-file>controller</welcome-file>
