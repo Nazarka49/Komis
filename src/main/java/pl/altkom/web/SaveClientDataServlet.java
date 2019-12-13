@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class SaveClientDataServlet extends HttpServlet {
     @Override
@@ -22,10 +23,18 @@ public class SaveClientDataServlet extends HttpServlet {
         ClientDataDAO dao = new ClientDataDAOImpl();
         try {
             dao.saveClientData(client, getServletContext().getInitParameter("dataSource"));
+            req.setAttribute("addedClient", client);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        resp.sendRedirect("http://localhost:8080/Komis/success");
+        PrintWriter out = resp.getWriter();
+        out.println("<HTML><HEAD>");
+        out.println("<TITLE>SUKCES</TITLE>");
+        out.println("<meta charset=\"UTF-8\">");
+        out.println("</HEAD><BODY>");
+        out.println("<h1>Udało Ci się dodać użytkownika!!!</h1>");
+        out.println("<a href=\"userForm.html\">Dodaj kolejnego użytkownika</a>");
+        out.println("</body></html>");
 
     }
 }

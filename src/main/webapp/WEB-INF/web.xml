@@ -26,23 +26,13 @@
   </servlet>
 
   <servlet>
-    <servlet-name>success</servlet-name>
-    <servlet-class>pl.altkom.web.successfullSubmitServlet</servlet-class>
-  </servlet>
-
-  <servlet>
     <servlet-name>showDatabase</servlet-name>
-    <servlet-class>pl.altkom.web.showDatabaseServlet</servlet-class>
+    <servlet-class>pl.altkom.web.ReadClientDataServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>showDatabase</servlet-name>
     <url-pattern>/database</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>success</servlet-name>
-    <url-pattern>/success</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -82,5 +72,9 @@
   <welcome-file-list>
     <welcome-file>controller</welcome-file>
   </welcome-file-list>
+
+  <listener>
+    <listener-class>pl.altkom.web.SessionCounter</listener-class>
+  </listener>
 
 </web-app>

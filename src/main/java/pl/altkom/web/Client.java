@@ -6,7 +6,16 @@ public class Client {
     private int age;
     private String region;
 
+    public Client(String firstName, String lastName, int age, String region, Sex sex) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.region = region;
+        this.sex = sex;
+    }
 
+    public Client() {
+    }
 
     private Sex sex;
 

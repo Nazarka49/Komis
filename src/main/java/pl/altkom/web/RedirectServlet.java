@@ -15,7 +15,7 @@ public class RedirectServlet extends HttpServlet {
             resp.sendRedirect("https://www.volvocars.com/pl");
         } else if ( make.equals("Mercedes")) {
             resp.sendRedirect("http://mercedes.pl");
-        }else if ( make.equals("Saab")) {
+        } else if ( make.equals("Saab")) {
             resp.sendRedirect("http://Saab.pl");
         } else if ( make.equals("Audi")) {
             resp.sendRedirect("http://Audi.pl");
