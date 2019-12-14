@@ -1,4 +1,7 @@
-package pl.altkom.web;
+package pl.altkom.web.dao;
+
+import pl.altkom.web.Client;
+import pl.altkom.web.Sex;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +14,9 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class ClientDataDAOImpl implements ClientDataDAO {
+	// sudo apt install sqlite3
+	// sqlite3 komis.sqlite
+	// . tables * or any query
 
 	public void saveClientData(Client cl, String dataSource) throws Exception {
 		

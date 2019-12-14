@@ -1,13 +1,25 @@
-package pl.altkom.web;
+package pl.altkom.web.servlets;
 
+import pl.altkom.web.Client;
+import pl.altkom.web.Sex;
+import pl.altkom.web.dao.ClientDataDAO;
+import pl.altkom.web.dao.ClientDataDAOImpl;
+
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@WebServlet(urlPatterns = "/add_user")
 public class SaveClientDataServlet extends HttpServlet {
+
+    @Resource(name="jdbc:komis")
+    private String ds;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Client client = new Client();
@@ -22,7 +34,7 @@ public class SaveClientDataServlet extends HttpServlet {
 
         ClientDataDAO dao = new ClientDataDAOImpl();
         try {
-            dao.saveClientData(client, getServletContext().getInitParameter("dataSource"));
+            dao.saveClientData(client, ds);
             req.setAttribute("addedClient", client);
         } catch (Exception e) {
             e.printStackTrace();

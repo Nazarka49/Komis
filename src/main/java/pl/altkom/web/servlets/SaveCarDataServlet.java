@@ -1,12 +1,17 @@
-package pl.altkom.web;
+package pl.altkom.web.servlets;
+
+import pl.altkom.web.Car;
+import pl.altkom.web.dao.CarDataDAO;
+import pl.altkom.web.dao.CarDataDAOImpl;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+@WebServlet(urlPatterns = "/add_car")
 public class SaveCarDataServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
