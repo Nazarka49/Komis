@@ -18,20 +18,15 @@ public class ClientDataDAOImpl implements ClientDataDAO {
 	// sqlite3 komis.sqlite
 	// . tables * or any query
 
-	public void saveClientData(Client cl, String dataSource) throws Exception {
-		
-        InitialContext initCtx = new InitialContext();
-		Context context = (Context) initCtx.lookup("java:comp/env");
-        DataSource ds = (DataSource) context.lookup(dataSource);
-
+	public void saveClientData(Client cl, DataSource dataSource) throws Exception {
         Connection con = null;
-        
+
         try {
-	        con = ds.getConnection();
-	        
+	        con = dataSource.getConnection();
+
 	        PreparedStatement pstmt = con.prepareStatement(
 	        "INSERT INTO klient(id,imie,nazwisko,region,wiek,mezczyzna) values (?,?,?,?,?,?)");
-	
+
 	        int m = (cl.getSex().equals("MALE") ? 1 : 0);
 	        pstmt.setInt(1, generateId());
 	        pstmt.setString(2, cl.getFirstName());
@@ -39,7 +34,7 @@ public class ClientDataDAOImpl implements ClientDataDAO {
 	        pstmt.setString(4, cl.getRegion());
 	        pstmt.setInt(5, cl.getAge());
 	        pstmt.setInt(6, m);
-	        
+
 	        pstmt.executeUpdate();
 	        pstmt.close();
         } finally {
@@ -48,7 +43,7 @@ public class ClientDataDAOImpl implements ClientDataDAO {
         	}
         }
 	}
-	
+
 	private int generateId() {
 		return ((int) (System.currentTimeMillis() % 100000)) + 100000;
 	}
@@ -60,19 +55,18 @@ public class ClientDataDAOImpl implements ClientDataDAO {
 
 		try {
 			conn = dataSource.getConnection();
-
 			PreparedStatement pstmt = conn.prepareStatement(
-					"SELECT imie, nazwisko, region, wiek, mezczyzna FROM klient");
-
+					"SELECT id, imie, nazwisko, region, wiek, mezczyzna FROM klient");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Client cl = new Client();
-				cl.setFirstName(rs.getString(1));
-				cl.setLastName(rs.getString(2));
-				cl.setRegion(rs.getString(3));
-				cl.setAge(rs.getInt(4));
+				cl.setId(rs.getInt(1));
+				cl.setFirstName(rs.getString(2));
+				cl.setLastName(rs.getString(3));
+				cl.setRegion(rs.getString(4));
+				cl.setAge(rs.getInt(5));
 				Sex sex = null;
-				if(rs.getInt(5) == 1){
+				if(rs.getInt(6) == 1){
 					sex = Sex.MALE;
 				} else if (rs.getInt(5) == 0) {
 					sex = Sex.FEMALE;
@@ -91,5 +85,34 @@ public class ClientDataDAOImpl implements ClientDataDAO {
 		}
 		return clients;
 	}
+
+	@Override
+	public void removeClient(String firstName, String lastName, DataSource dataSource) throws Exception {
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			connection.createStatement().executeUpdate("DELETE FROM klient WHERE " +
+					"imie = '" + firstName + "' AND nazwisko = '" + lastName + "';");
+		} finally {
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+
+	@Override
+	public void removeClient(int id, DataSource dataSource) throws Exception {
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			connection.createStatement().executeUpdate("DELETE FROM klient WHERE " +
+					"id = " + id + ";");
+		} finally {
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+
 
 }

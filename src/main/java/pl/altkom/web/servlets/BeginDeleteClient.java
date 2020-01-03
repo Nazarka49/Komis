@@ -1,6 +1,5 @@
 package pl.altkom.web.servlets;
 
-import pl.altkom.web.Client;
 import pl.altkom.web.dao.ClientDataDAO;
 import pl.altkom.web.dao.ClientDataDAOImpl;
 
@@ -12,24 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
-@WebServlet(urlPatterns = "/database")
-public class ReadClientDataServlet extends HttpServlet {
 
-    @Resource(name="jdbc:komis")
-    private DataSource ds;
+@WebServlet(urlPatterns = "/start_delete_client")
+public class BeginDeleteClient extends HttpServlet {
+    @Resource(name = "jdbc:komis")
+    private DataSource dataSource;
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter pw = resp.getWriter();
-//        pw.println("Tutaj będą się wyświetlać użytkownicy");
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             ClientDataDAO dao = new ClientDataDAOImpl();
-            List clients = dao.readClientsData(ds);
+            List clients = dao.readClientsData(dataSource);
             req.setAttribute("clients", clients);
-            req.getRequestDispatcher("user_list.jsp").forward(req, resp);
+            req.getRequestDispatcher("list_delete_clients.jsp").forward(req, resp);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServletException("Cannot reaad clients", e);
         }
     }
 }
