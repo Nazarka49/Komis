@@ -17,12 +17,14 @@
 <% List clients = (List) oClients; %>
 
 <form action="delete_client">
-    <select name="client">
-        <% for (Object o : clients) { %>
-            <% Client c = (Client) o; %>
-            <option><%= c.getFirstName() %> <%= c.getLastName() %></option>
-        <%  } %>
-    </select>
+    <label>
+        <select name="client">
+            <% for (Object o : clients) { %>
+                <% Client c = (Client) o; %>
+                <option><%= c.getFirstName() %> <%= c.getLastName() %></option>
+            <%  } %>
+        </select>
+    </label>
     <input type="submit" value="Usuń"/>
 </form>
 

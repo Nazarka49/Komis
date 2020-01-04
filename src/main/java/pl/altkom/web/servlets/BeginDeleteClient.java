@@ -27,7 +27,7 @@ public class BeginDeleteClient extends HttpServlet {
             req.setAttribute("clients", clients);
             req.getRequestDispatcher("list_delete_clients.jsp").forward(req, resp);
         } catch (Exception e) {
-            throw new ServletException("Cannot reaad clients", e);
+            throw new ServletException("Cannot read clients", e);
         }
     }
 }
