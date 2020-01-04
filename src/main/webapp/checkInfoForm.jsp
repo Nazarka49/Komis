@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -17,7 +18,7 @@
 <table>
     <tr>
         <td>Marka</td>
-        <td>${car.make}</td>
+        <td><c:out value="${car.make}" /></td>
     </tr>
     <tr>
         <td>Typ</td>
@@ -25,15 +26,15 @@
     </tr>
     <tr>
         <td>Rok produkcji</td>
-        <td><jsp:getProperty name="car" property="year"/></td>
+        <td><c:out value="${car.year}"/></td>
     </tr>
     <tr>
         <td>Przebieg</td>
-        <td><jsp:getProperty name="car" property="distance"/></td>
+        <td><c:out value="${car.distance}"/></td>
     </tr>
     <tr>
         <td>Pojemność</td>
-        <td><jsp:getProperty name="car" property="capacity"/></td>
+        <td><c:out value="${car.capacity}"/></td>
     </tr>
 </table>
 
