@@ -4,6 +4,7 @@ import pl.altkom.web.CarBean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.sql.DataSource;
 
@@ -39,6 +40,7 @@ public class CarInfoDAOImpl implements CarInfoDAO {
             System.out.println("Błąd przy zapisie danych: " + e);
         }
     }
+
 
     private int generateId() {
         return ((int) (System.currentTimeMillis() % 100000)) + 100000;
